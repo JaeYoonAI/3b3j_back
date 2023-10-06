@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "users",
+    "contents",
 ]
 
 REST_FRAMEWORK = {
@@ -154,3 +155,9 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+STATIC_ROOT = BASE_DIR / "static"
+STATIC_URL = "/static/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDOA_URL = "/media/"
