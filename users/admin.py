@@ -19,6 +19,7 @@ class UserCreationForm(forms.ModelForm):
         fields = [
             "email",
             "nickname",
+            "profile_pic",
         ]
 
     def clean_password2(self):
@@ -43,18 +44,25 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["email", "password", "nickname", "is_active", "is_admin"]
+        fields = [
+            "email",
+            "password",
+            "nickname",
+            "profile_pic",
+            "is_active",
+            "is_admin",
+        ]
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ["email", "nickname", "is_admin"]
+    list_display = ["email", "nickname", "profile_pic", "is_admin"]
     list_filter = ["is_admin"]
     fieldsets = [
         (None, {"fields": ["email", "password"]}),
-        ("Personal info", {"fields": ["nickname"]}),
+        ("Personal info", {"fields": ["nickname", "profile_pic"]}),
         ("Permissions", {"fields": ["is_admin"]}),
     ]
 
@@ -63,7 +71,13 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ["email", "nickname", "password1", "password2"],
+                "fields": [
+                    "email",
+                    "nickname",
+                    "profile_pic",
+                    "password1",
+                    "password2",
+                ],
             },
         ),
     ]
