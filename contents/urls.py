@@ -4,6 +4,7 @@ from contents import views
 
 urlpatterns = [
     path("", views.ContentView.as_view(), name="content_view"),
+    path("movie/", views.MovieView.as_view(), name="movie_view"),
     path(
         "int:content_id>/",
         views.ContentDetailView.as_view(),
