@@ -1,36 +1,36 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from contents.models import Content
-from contents.serializers import ContentSerializer
+from contents.models import Content, MovieContent, MusicContent, GameContent
+from contents.serializers import (
+    ContentSerializer,
+    MovieContentSerializer,
+    MusicContentSerializer,
+    GameContentSerializer,
+)
 import requests
 from bs4 import BeautifulSoup
 
 
-class MovieView(APIView):
+class MovieContentView(APIView):
     def get(self, request):
-        URL = "https://movie.daum.net/ranking/reservation"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
-        }
-        data = requests.get(URL, headers=headers)
-        soup = BeautifulSoup(data.text, "html.parser")
-        movie_list = soup.select("#mainContent > div > div.box_ranking > ol > li")
+        movie_contents = MovieContent.objects.all()
+        serializer = MovieContentSerializer(movie_contents, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-        for li in movie_list:
-            rank = li.select_one(".rank_num").text
-            title = li.select_one(".link_txt").text
-            relese_date = li.select_one(".txt_info").text[-9:-1]
-            description = li.select_one(".link_story").text.strip("\n ")
-            doc = {
-                "rank": rank,
-                "title": title,
-                "relese_date": relese_date,
-                "description": description,
-            }
-            print(doc)
 
-        return Response(doc, status=status.HTTP_200_OK)
+class MusicContentView(APIView):
+    def get(self, request):
+        music_contents = MusicContent.objects.all()
+        serializer = MusicContentSerializer(music_contents, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GameContentView(APIView):
+    def get(self, request):
+        game_contents = GameContent.objects.all()
+        serializer = GameContentSerializer(game_contents, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ContentView(APIView):
