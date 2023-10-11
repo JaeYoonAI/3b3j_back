@@ -12,9 +12,9 @@ urlpatterns = [
         views.ContentDetailView.as_view(),
         name="content_detail_view",
     ),
-    path("comment/", views.CommentView.as_view(), name="comment_view"),
+    path("comments/", views.CommentView.as_view(), name="comment_view"),
     path(
-        "comment/<int:comment_id>/",
+        "comments/<int:comment_id>/",
         views.CommentDetailView.as_view(),
         name="comment_detail_view",
     ),

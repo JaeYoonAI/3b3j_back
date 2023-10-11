@@ -8,8 +8,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 
+
 def signup(request):
-    return render(request, 'signup.html')
+    return render(request, "signup.html")
+
 
 class UserView(APIView):
     def post(self, request):
@@ -22,10 +24,9 @@ class UserView(APIView):
                 {"message": f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST
             )
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-
-
 
 
 class mockView(APIView):
