@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from django.db.models.query_utils import Q
 from django.shortcuts import get_object_or_404
 from contents.models import Content, MovieContent, MusicContent, GameContent, Comment
 from contents.serializers import (
@@ -38,19 +39,18 @@ class GameContentView(APIView):
 
 class ContentView(APIView):
     def get(self, request):
-        contents = Content.objects.all()
-        serializer = ContentSerializer(contents, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        movie_contents = MovieContent.objects.all()
+        music_contents = MusicContent.objects.all()
+        game_contents = GameContent.objects.all()
+        serializer = ContentSerializer(
+            movie_contents, music_contents, game_contents, many=True
+        )
 
-    def post(self, request):
-        pass
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ContentDetailView(APIView):
     def get(self, request, content_id):
-        pass
-
-    def post(self, request):
         pass
 
 
@@ -87,8 +87,3 @@ class CommentDetailView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("권한이 없습니다!", status=status.HTTP_403_FORBIDDEN)
-
-
-class LikeView(APIView):
-    def post(self, request):
-        pass

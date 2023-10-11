@@ -63,7 +63,7 @@ class Comment(models.Model):
     game_content = models.ForeignKey(
         GameContent, null=True, blank=True, on_delete=models.CASCADE
     )
-    rate = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
