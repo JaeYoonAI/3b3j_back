@@ -8,6 +8,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 
+def signup(request):
+    return render(request, 'signup.html')
 
 class UserView(APIView):
     def post(self, request):
