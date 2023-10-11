@@ -55,13 +55,18 @@ class MusicContent(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie_content = models.ForeignKey(
-        MovieContent, blank=True, on_delete=models.CASCADE
+        MovieContent, null=True, blank=True, on_delete=models.CASCADE
     )
     music_content = models.ForeignKey(
-        MusicContent, blank=True, on_delete=models.CASCADE
+        MusicContent, null=True, blank=True, on_delete=models.CASCADE
     )
-    game_content = models.ForeignKey(GameContent, blank=True, on_delete=models.CASCADE)
-    rate = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    game_content = models.ForeignKey(
+        GameContent, null=True, blank=True, on_delete=models.CASCADE
+    )
+    rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(10)])
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.content)

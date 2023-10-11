@@ -3,6 +3,15 @@ from users.models import User
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from contents.serializers import CommentSerializer
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    comment_set = CommentSerializer(many=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "email", "nickname", "profile_pic", "comment_set")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -24,11 +33,12 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
 
-        token['email'] = user.email
+        token["email"] = user.email
 
         return token

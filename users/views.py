@@ -1,6 +1,12 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from users.serializers import CustomTokenObtainPairSerializer, UserSerializer
+from users.models import User
+from users.serializers import (
+    CustomTokenObtainPairSerializer,
+    UserProfileSerializer,
+    UserSerializer,
+)
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -8,8 +14,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 
+
 def signup(request):
-    return render(request, 'signup.html')
+    return render(request, "signup.html")
+
 
 class UserView(APIView):
     def post(self, request):
@@ -22,10 +30,9 @@ class UserView(APIView):
                 {"message": f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST
             )
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
-
-
 
 
 class mockView(APIView):
@@ -33,3 +40,12 @@ class mockView(APIView):
 
     def get(self, request):
         return Response("get요청")
+
+
+class ProfileView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data)
