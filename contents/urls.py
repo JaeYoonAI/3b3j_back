@@ -13,4 +13,5 @@ urlpatterns = [
         views.CommentDetailView.as_view(),
         name="comment_detail_view",
     ),
+    path("all_list/", views.all_list),
 ]
