@@ -120,6 +120,15 @@ img {
   color: white;
 }
 
+.card__ziptext {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break:break-all;
+  width: 100px;
+  height: 20px;
+}
+
 .card__button {
   display: inline-block;
   background-color: var(--first-color);

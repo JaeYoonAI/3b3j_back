@@ -21,6 +21,102 @@
       </style>
 
       <title>AlphaCritic</title>
+      <script src="http://code.jquery.com/jquery-latest.js"></script> 
+
+      <script>
+         $(document).ready(function () {
+            fetch("http://127.0.0.1:8000/contents/movie/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#movie_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let image = a["image"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let relese_date = a["relese_date"]
+                  let description = a["description"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${image}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">개봉일 ${relese_date}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#movie_cards").append(temp_html)                  
+               })
+            })
+            fetch("http://127.0.0.1:8000/contents/music/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#music_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let cover = a["cover"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let artist = a["artist"]
+                  let album_name = a["album_name"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${cover}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">${artist}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#music_cards").append(temp_html)                  
+               })
+            })
+            fetch("http://127.0.0.1:8000/contents/game/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#game_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let image = a["image"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let release_date = a["release_date"]
+                  let genre = a["genre"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${image}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">${genre}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#game_cards").append(temp_html)                  
+               })
+            })
+
+         })
+         
+      </script>
+
    </head>
    <body>
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -56,95 +152,55 @@
          </div>
       </div>
    </nav>
+      <!-- Movie Sec -->
+      <section class="container">
+         <div class="card__container swiper">
+            <div class="card__content">
+               <div id="movie_cards" class="swiper-wrapper">
+               </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next">
+               <i class="ri-arrow-right-s-line"></i>
+            </div>
+            
+            <div class="swiper-button-prev">
+               <i class="ri-arrow-left-s-line"></i>
+            </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+         </div>
+      </section>
+
+      <!-- Music Sec -->
+      <section class="container">
+         <div class="card__container swiper">
+            <div class="card__content">
+               <div id="music_cards" class="swiper-wrapper">
+               </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next">
+               <i class="ri-arrow-right-s-line"></i>
+            </div>
+            
+            <div class="swiper-button-prev">
+               <i class="ri-arrow-left-s-line"></i>
+            </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+         </div>
+      </section>
+
       <!-- Game Sec -->
       <section class="container">
          <div class="card__container swiper">
             <div class="card__content">
-               <div class="swiper-wrapper">
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="https://cdn.europosters.eu/image/750/posters/elden-ring-battlefield-of-the-fallen-i121753.jpg" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">Elden Ring</h3>
-                        <p class="card__description">
-                           Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.
-                        </p>
-      
-                        <a href="{% url 'details' %}" class="card__button">View Review</a>
-                     </div>
-                  </article>
-      
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="https://image.api.playstation.com/vulcan/ap/rnd/202208/1718/NFf86jgU4AeVYgJBEoEKBpxW.jpg" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">Asassin's Creed Mirage</h3>
-                        <p class="card__description" >
-                           Become the most versatile Assassin in franchise history. Parkour seamlessly through the city
-                        </p>
-      
-                        <a href="#" class="card__button">View Review</a>
-                     </div>
-                  </article>
-      
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="https://media.graphassets.com/resize=fit:clip,width:1200/2NFofYCVR6SdNq5yfoIf" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">Starfield</h3>
-                        <p class="card__description">
-                           Starfield is the first new universe in over 25 years from Bethesda Game Studios.
-                        <br>
-                        <br>
-                        </p>
-      
-                        <a href="#" class="card__button">View More</a>
-                     </div>
-                  </article>
-      
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="data:image/jpeg;base64,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" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">The Legend of Zelda: Breath of the Wild</h3>
-                        <p class="card__description">
-                           Step into a world of discovery, exploration, and adventure in The Legend of Zelda.
-                        </p>
-      
-                        <a href="#" class="card__button">View More</a>
-                     </div>
-                  </article>
-
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/Hpl5MtwQgOVF9vJqlfui6SDB5Jl4oBSq.png" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">Red Dead Redemption 2</h3>
-                        <p class="card__description">
-                           America, 1899. The end of the Wild West era has begun.
-                           <br>
-                           <br>
-                           <br>
-                        </p>
-      
-                        <a href="#" class="card__button">View More</a>
-                     </div>
-                  </article>
+               <div id="game_cards" class="swiper-wrapper">
                </div>
             </div>
 

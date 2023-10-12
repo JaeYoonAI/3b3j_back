@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.db.models.query_utils import Q
@@ -14,6 +15,10 @@ from contents.serializers import (
 )
 import requests
 from bs4 import BeautifulSoup
+
+
+def all_list(request):
+    return render(request, "all_list.html")
 
 
 class MovieContentView(APIView):

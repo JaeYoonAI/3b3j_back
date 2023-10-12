@@ -63,3 +63,18 @@ reviews.push({ title: 'Great Product', rating: 5, comment: 'I love this product!
 reviews.push({ title: 'Could be Better', rating: 3, comment: 'Not bad, but could use improvements.' });
 
 displayReviews();
+
+
+// 컨텐츠 불러오기
+
+fetch("http://127.0.0.1:8000/contents/movie/")
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+
+fetch("http://127.0.0.1:8000/contents/music/")
+  .then((response) => response.json())
+  .then((data) => console.log(data));  
+
+fetch("http://127.0.0.1:8000/contents/game/")
+  .then((response) => response.json())
+  .then((data) => console.log(data)); 
