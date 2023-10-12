@@ -39,7 +39,7 @@ async function handleLogin(){
 
     console.log(response_json)
 
-    setItem("access", response_json.access);
-    setItem("refresh", response_json.refresh);
+    localStorage.setItem("access", response_json.access);
+    localStorage.setItem("refresh", response_json.refresh);
 }
 
