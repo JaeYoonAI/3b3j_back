@@ -1,8 +1,10 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <script src="{% static 'js/api.js' %}"></script>
 
 <!--    Bootstrap 초기화 부분 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -11,17 +13,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
+  <h1>Signup Page</h1>
     <form>
-      <div class="form-group">
-        <label for="username">사용자명</label>
-        <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="이름을 입력하세요.">
-      </div>
-      <div class="form-group">
-        <label for="password">비밀번호</label>
-        <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요.">
-      </div>
-
-      <button type="submit" class="btn btn-primary">등록</button>
+      <input type="email" name="email" id="email" placeholder="email"/>
+      <input type="nickname" id="nickname" name="nickname" placeholder="nickname"/>
+      <input type="password" id="password" name="password" placeholder="password"/>
+      <button type="button" onclick="handleSignin()" class="btn btn-primary">회원가입하기</button>
     </form>
 </body>
 </html>
