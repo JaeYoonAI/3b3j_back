@@ -17,6 +17,7 @@ DEBUG = True
 # for EC2
 ALLOWED_HOSTS = [
     ".ap-northeast-2.compute.amazonaws.com",
+    "127.0.0.1",
 ]
 
 
@@ -157,8 +158,8 @@ SIMPLE_JWT = {
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 # Set Statics for AWS
 
-STATICFILES_DIRS = []
-STATIC_ROOT = BASE_DIR / "static/"
+STATICFILES_DIRS = [BASE_DIR / 'templates/']
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = BASE_DIR / "media"
