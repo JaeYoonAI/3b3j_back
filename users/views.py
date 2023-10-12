@@ -19,6 +19,10 @@ def signup(request):
     return render(request, "signup.html")
 
 
+def login(request):
+    return render(request, "login.html")
+
+
 class UserView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
