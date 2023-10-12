@@ -10,11 +10,13 @@ from users.serializers import (
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Create your views here.
 
-
+@csrf_exempt
 def signup(request):
     return render(request, "signup.html")
 
