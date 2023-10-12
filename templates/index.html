@@ -25,7 +25,7 @@
 
       <script>
          $(document).ready(function () {
-            fetch("http://127.0.0.1:8000/contents/movie/").then((res) => res.json()).then((data) => {
+            fetch("/contents/movie/").then((res) => res.json()).then((data) => {
                console.log(data)
                let rows = data
                $('#movie_cards').empty()
@@ -54,7 +54,7 @@
                   $("#movie_cards").append(temp_html)                  
                })
             })
-            fetch("http://127.0.0.1:8000/contents/music/").then((res) => res.json()).then((data) => {
+            fetch("/contents/music/").then((res) => res.json()).then((data) => {
                console.log(data)
                let rows = data
                $('#music_cards').empty()
@@ -83,7 +83,7 @@
                   $("#music_cards").append(temp_html)                  
                })
             })
-            fetch("http://127.0.0.1:8000/contents/game/").then((res) => res.json()).then((data) => {
+            fetch("/contents/game/").then((res) => res.json()).then((data) => {
                console.log(data)
                let rows = data
                $('#game_cards').empty()
