@@ -21,6 +21,10 @@ def signup(request):
     return render(request, "signup.html")
 
 
+def login(request):
+    return render(request, "login.html")
+
+
 class UserView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -41,6 +45,10 @@ class mockView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
+        print(request.user)
+        user = request.user
+        user.is_admin = True
+        user.save()
         return Response("get요청")
 
 

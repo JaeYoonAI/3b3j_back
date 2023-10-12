@@ -1,45 +1,75 @@
 window.onload = ()=>{
-    console.log("created")
+    console.log("loaded")
 }
 
 async function handleSignin(){
-    const username = document.getElementById("username").value
+    const email = document.getElementById("email").value
+    const nickname = document.getElementById("nickname").value
     const password = document.getElementById("password").value
-    console.log(username, password)
+    console.log(email, nickname, password)
 
-    const response = await fetch('http://127.0.0.1:8000/users/signup/', {
+    const response = await fetch("http://127.0.0.1:8000/users/signup_api/", {
         headers:{
-            'content-type':'application/json',
+            "content-type": "application/json",
         },
-        method:'POST',
+        method: 'POST',
         body: JSON.stringify({
-            "username":username,
+            "email":email,
+            "nickname":nickname,
             "password":password
         })
     })
+
     console.log(response)
 }
 
 async function handleLogin(){
-    const username = document.getElementById("username").value
+    const email = document.getElementById("email").value
     const password = document.getElementById("password").value
-    console.log(username, password)
-
-    const response = await fetch('http://127.0.0.1:8000/api/token/', {
+    const response = await fetch("http://127.0.0.1:8000/users/api/token/", {
         headers:{
-            'content-type':'application/json',
+            "content-type": "application/json",
         },
-        method:'POST',
+        method: 'POST',
         body: JSON.stringify({
-            "username":username,
+            "email":email,
             "password":password
         })
     })
+
     const response_json = await response.json()
+
 
     console.log(response_json)
 
     localStorage.setItem("access", response_json.access);
     localStorage.setItem("refresh", response_json.refresh);
+
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c){
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    localStorage.setItem("payload", jsonPayload);
 }
 
+
+
+async function handleMock(){
+
+    const response = await fetch("http://127.0.0.1:8000/users/mock/", {
+        headers:{
+            "Authorization":"Bearer " + localStorage.getItem("access")
+        },
+        method: 'GET',
+    })
+
+    console.log(response)
+}
+
+function handleLogout() {
+    localStorage.removeItem("access")
+    localStorage.removeItem("refresh")
+    localStorage.removeItem("payload")
+}
