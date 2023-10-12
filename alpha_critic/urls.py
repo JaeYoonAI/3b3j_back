@@ -3,9 +3,12 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from alpha_critic.views import index
+from alpha_critic.views import detail
+from . import views
 
 urlpatterns = [
     path('',index),
+    path('details/', views.detail ,name='details'),
     path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
     path("contents/", include("contents.urls")),
