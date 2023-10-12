@@ -7,7 +7,7 @@ from alpha_critic.views import detail
 from . import views
 
 urlpatterns = [
-    path("", index),
+    path("", views.index, name="index"),
     path("details/", views.detail, name="details"),
     path("admin/", admin.site.urls),
     path("users/", include("users.urls")),
