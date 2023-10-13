@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from rest_framework import serializers
 from users.models import User
 
@@ -41,4 +42,4 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token["email"] = user.email
 
-        return token
+        return token, redirect("/")

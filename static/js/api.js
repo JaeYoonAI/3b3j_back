@@ -2,7 +2,7 @@ window.onload = ()=>{
     console.log("loaded")
 }
 
-async function handleSignin(){
+async function handleSignup(){
     const email = document.getElementById("email").value
     const nickname = document.getElementById("nickname").value
     const password = document.getElementById("password").value

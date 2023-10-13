@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from users.models import User
@@ -13,8 +13,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.views.decorators.csrf import csrf_exempt
 
 
-
 # Create your views here.
+
 
 @csrf_exempt
 def signup(request):
@@ -30,7 +30,9 @@ class UserView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message": "가입완료!"}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"message": "가입완료!"}, status=status.HTTP_201_CREATED
+            ), redirect("/users/signin/")
         else:
             return Response(
                 {"message": f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST

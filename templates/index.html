@@ -48,7 +48,7 @@
                                           <h3 class="card__name">${title}</h3>
                                           <p class="card__description">개봉일 ${relese_date}</p>
                                           <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
-                                          <a href="#" class="card__button">View More</a>
+                                          <a href="/contents/movie/${id}/" class="card__button">View More</a>
                                        </div>
                                     </article>`
                   $("#movie_cards").append(temp_html)                  
@@ -77,7 +77,7 @@
                                           <h3 class="card__name">${title}</h3>
                                           <p class="card__description">${artist}</p>
                                           <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
-                                          <a href="#" class="card__button">View More</a>
+                                          <a href="/contents/music/${id}/" class="card__button">View More</a>
                                        </div>
                                     </article>`
                   $("#music_cards").append(temp_html)                  
@@ -106,7 +106,7 @@
                                           <h3 class="card__name">${title}</h3>
                                           <p class="card__description">${genre}</p>
                                           <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
-                                          <a href="#" class="card__button">View More</a>
+                                          <a href="/contents/game/${id}/" class="card__button">View More</a>
                                        </div>
                                     </article>`
                   $("#game_cards").append(temp_html)                  

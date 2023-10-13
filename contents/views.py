@@ -17,6 +17,21 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def moviedetails(request, moviecontent_id):
+    movie_detail = get_object_or_404(MovieContent, pk=moviecontent_id)
+    return render(request, "moviedetails.html", {"moviecontent": movie_detail})
+
+
+def musicdetails(request, musiccontent_id):
+    music_detail = get_object_or_404(MusicContent, pk=musiccontent_id)
+    return render(request, "musicdetails.html", {"musiccontent": music_detail})
+
+
+def gamedetails(request, gamecontent_id):
+    game_detail = get_object_or_404(GameContent, pk=gamecontent_id)
+    return render(request, "gamedetails.html", {"gamecontent": game_detail})
+
+
 def all_list(request):
     return render(request, "all_list.html")
 
@@ -28,6 +43,13 @@ class MovieContentView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class MovieContentDetailView(APIView):
+    def get(self, request, moviecontent_id):
+        moviecontent = get_object_or_404(MovieContent, id=moviecontent_id)
+        serializer = MovieContentSerializer(moviecontent)
+        return Response(serializer.data)
+
+
 class MusicContentView(APIView):
     def get(self, request):
         music_contents = MusicContent.objects.all()
@@ -35,11 +57,25 @@ class MusicContentView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class MusicContentDetailView(APIView):
+    def get(self, request, musiccontent_id):
+        musiccontent = get_object_or_404(MusicContent, id=musiccontent_id)
+        serializer = MusicContentSerializer(musiccontent)
+        return Response(serializer.data)
+
+
 class GameContentView(APIView):
     def get(self, request):
         game_contents = GameContent.objects.all()
         serializer = GameContentSerializer(game_contents, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GameContentDetailView(APIView):
+    def get(self, request, gamecontent_id):
+        gamecontent = get_object_or_404(GameContent, id=gamecontent_id)
+        serializer = GameContentSerializer(gamecontent)
+        return Response(serializer.data)
 
 
 class ContentView(APIView):

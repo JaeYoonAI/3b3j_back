@@ -21,6 +21,102 @@
       </style>
 
       <title>AlphaCritic</title>
+      <script src="http://code.jquery.com/jquery-latest.js"></script> 
+
+      <script>
+         $(document).ready(function () {
+            fetch("/contents/movie/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#movie_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let image = a["image"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let relese_date = a["relese_date"]
+                  let description = a["description"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${image}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">개봉일 ${relese_date}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#movie_cards").append(temp_html)                  
+               })
+            })
+            fetch("/contents/music/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#music_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let cover = a["cover"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let artist = a["artist"]
+                  let album_name = a["album_name"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${cover}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">${artist}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#music_cards").append(temp_html)                  
+               })
+            })
+            fetch("/contents/game/").then((res) => res.json()).then((data) => {
+               console.log(data)
+               let rows = data
+               $('#game_cards').empty()
+               rows.forEach((a) => {
+                  let id = a["id"]
+                  let title = a["title"]
+                  let image = a["image"]
+                  let avg_rating = a["avg_rating"]
+                  let comments_count = a["comments_count"]
+                  let release_date = a["release_date"]
+                  let genre = a["genre"]
+                  
+                  let temp_html = `<article class="card__article swiper-slide">
+                                       <div class="card__image">
+                                          <img src="${image}" alt="image" class="card__img">
+                                          <div class="card__shadow"></div>
+                                       </div>
+                        
+                                       <div class="card__data">
+                                          <h3 class="card__name">${title}</h3>
+                                          <p class="card__description">${genre}</p>
+                                          <p class="card__description"><b>${avg_rating}</b>/10 (${comments_count})</p>
+                                          <a href="#" class="card__button">View More</a>
+                                       </div>
+                                    </article>`
+                  $("#game_cards").append(temp_html)                  
+               })
+            })
+
+         })
+         
+      </script>
+
    </head>
    <body>
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,7 +128,7 @@
          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="#">Contact us</a>
@@ -51,37 +147,60 @@
             </ul>
             <form class="d-flex">
                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-               <button class="btn btn-outline-success" type="submit">Sign up</button>
+               <button class="btn btn-outline-success" onclick="location.href='{% url 'signup' %}'" type="button" type="submit">Sign up</button>
             </form>
          </div>
       </div>
    </nav>
+      <!-- Movie Sec -->
+      <section class="container">
+         <div class="card__container swiper">
+            <div class="card__content">
+               <div id="movie_cards" class="swiper-wrapper">
+               </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next">
+               <i class="ri-arrow-right-s-line"></i>
+            </div>
+            
+            <div class="swiper-button-prev">
+               <i class="ri-arrow-left-s-line"></i>
+            </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+         </div>
+      </section>
+
+      <!-- Music Sec -->
+      <section class="container">
+         <div class="card__container swiper">
+            <div class="card__content">
+               <div id="music_cards" class="swiper-wrapper">
+               </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next">
+               <i class="ri-arrow-right-s-line"></i>
+            </div>
+            
+            <div class="swiper-button-prev">
+               <i class="ri-arrow-left-s-line"></i>
+            </div>
+
+            <!-- Pagination -->
+            <div class="swiper-pagination"></div>
+         </div>
+      </section>
+
       <!-- Game Sec -->
       <section class="container">
          <div class="card__container swiper">
             <div class="card__content">
-               <div class="swiper-wrapper">
-
-
-                  <article class="card__article swiper-slide">
-                     <div class="card__image">
-                        <img src="https://image.api.playstation.com/cdn/UP1004/CUSA03041_00/Hpl5MtwQgOVF9vJqlfui6SDB5Jl4oBSq.png" alt="image" class="card__img">
-                        <div class="card__shadow"></div>
-                     </div>
-      
-                     <div class="card__data">
-                        <h3 class="card__name">Red Dead Redemption 2</h3>
-                        <p class="card__description">
-                           America, 1899. The end of the Wild West era has begun.
-                           <br>
-                           <br>
-                           <br>
-                        </p>
-                        <a href="#" class="card__button">View More</a>
-                     </div>
-                  </article>
-
-                  
+               <div id="game_cards" class="swiper-wrapper">
                </div>
             </div>
 
